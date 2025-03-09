@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, flash
+from flask import Flask, request, redirect, url_for, flash, send_file, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -36,36 +36,6 @@ else:
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    html_content = '''
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>EV Charging Prediction</title>
-        <style>
-            body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
-            .container { max-width: 400px; margin: auto; padding: 20px; background: white; border-radius: 5px; box-shadow: 0px 0px 10px #ccc; }
-            input, button { margin: 5px; padding: 10px; width: 100%; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Login</h2>
-            <form method="POST">
-                <input type="text" name="login_username" placeholder="Username" required><br>
-                <input type="password" name="login_password" placeholder="Password" required><br>
-                <button type="submit">Login</button>
-            </form>
-            <h2>Signup</h2>
-            <form method="POST">
-                <input type="text" name="signup_username" placeholder="Username" required><br>
-                <input type="password" name="signup_password" placeholder="Password" required><br>
-                <button type="submit">Signup</button>
-            </form>
-        </div>
-    </body>
-    </html>
-    '''
-    
     if request.method == "POST":
         if "login_username" in request.form:
             username = request.form["login_username"]
@@ -90,8 +60,10 @@ def home():
                 db.session.add(new_user)
                 db.session.commit()
                 flash("Signup successful! Please log in.", "success")
-    
-    return html_content
+
+    # Read index.html manually and return it
+    with open("index.html", "r", encoding="utf-8") as file:
+        return file.read()
 
 @app.route("/predict", methods=["GET", "POST"])
 @login_required
@@ -112,7 +84,11 @@ def predict():
             except:
                 prediction = "Invalid input"
 
-    return f"<h2>Prediction: {prediction}</h2><a href='/logout'>Logout</a>"
+    # Read predict.html manually and replace the placeholder with the prediction
+    with open("predict.html", "r", encoding="utf-8") as file:
+        html_content = file.read()
+
+    return html_content.replace("{{ prediction }}", str(prediction))
 
 @app.route("/logout")
 @login_required
@@ -121,9 +97,13 @@ def logout():
     flash("You have been logged out.", "info")
     return redirect(url_for("home"))
 
+# Serve static files (CSS)
+@app.route('/styles.css')
+def serve_css():
+    return send_file("styles.css")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     
-    # Ensure Flask listens on 0.0.0.0 inside Docker
     app.run(host="127.0.0.1", port=5000, debug=True)
