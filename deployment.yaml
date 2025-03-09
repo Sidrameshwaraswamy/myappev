@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ev-charging-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ev-charging
+  template:
+    metadata:
+      labels:
+        app: ev-charging
+    spec:
+      containers:
+      - name: ev-charging-container
+        image: ev-charging-app:latest
+        ports:
+        - containerPort: 5000
