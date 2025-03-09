@@ -8,5 +8,4 @@ scikit-learn
 joblib
 jupyterlab
 keras
-tesorflow
 seaborn
