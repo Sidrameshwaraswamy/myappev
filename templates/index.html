@@ -3,140 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EV Transport Solutions</title>
-    <link rel="stylesheet" href="style.css">
+    <title>EV Charging Prediction - Login & Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <img src="https://th.bing.com/th/id/OIP.2-0AdJlz5s9TylR2nBpjTAHaGT?w=230&h=194&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="Logo" class="logo">
-            <span>EV Transport</span>
-        </div>
-        <div class="nav-links">
-            <a href="#home" class="active">Home</a>
-            <a href="#stations">Stations</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <div class="auth-buttons">
-            <button class="login-btn" onclick="toggleModal('loginModal')">Login</button>
-            <button class="signup-btn" onclick="toggleModal('signupModal')">Sign Up</button>
-        </div>
-    </nav>
+    <div class="container">
+        <h2>EV Charging Prediction</h2
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h1>The Future of Transportation</h1>
-                <p>Sustainable. Efficient. Electric.</p>
-                <button class="cta-btn">Get Started</button>
-            </div>
-        </section>
-
-        <section id="stations" class="stations">
-            <h2>Charging Stations</h2>
-            <div class="station-grid">
-                <div class="station-card">
-                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=300&fit=crop&auto=format" alt="Station 1">
-                    <h3>Downtown Hub</h3>
-                    <p>24/7 Availability</p>
-                    <span class="status available">Available</span>
-                </div>
-                <div class="station-card">
-                    <img src="https://images.unsplash.com/photo-1615526675250-dbe5d4302ae0?w=400&h=300&fit=crop&auto=format" alt="Station 2">
-                    <h3>Tech District</h3>
-                    <p>Fast Charging</p>
-                    <span class="status busy">Busy</span>
-                </div>
-                <div class="station-card">
-                    <img src="https://th.bing.com/th/id/OIP.7E4q8ORQ-qLXQRxS_uyEjQHaD4?w=286&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="Station 3">
-                    <h3>Suburban Station</h3>
-                    <p>Multiple Ports</p>
-                    <span class="status available">Available</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <h2>Contact Us</h2>
-            <div class="contact-container">
-                <form class="contact-form">
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <textarea placeholder="Message" required></textarea>
-                    <button type="submit">Send Message</button>
+        <div class="form-container">
+            <!-- Login Form -->
+            <div class="form-box">
+                <h3>Login</h3>
+                <form method="POST">
+                    <input type="text" name="login_username" placeholder="Username" required>
+                    <input type="password" name="login_password" placeholder="Password" required>
+                    <button type="submit">Login</button>
                 </form>
-                <div class="contact-info">
-                    <div class="info-item">
-                        <i class="icon">📍</i>
-                        <p>123 EV Street, Electric City</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="icon">📞</i>
-                        <p>7795017462</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="icon">✉️</i>
-                        <p>contact@evtransport.com</p>
-                    </div>
-                </div>
             </div>
-        </section>
-    </main>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="toggleModal('loginModal')">&times;</span>
-            <h2>Login</h2>
-            <form class="auth-form">
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
+            <!-- Signup Form -->
+            <div class="form-box">
+                <h3>Signup</h3>
+                <form method="POST">
+                    <input type="text" name="signup_username" placeholder="Username" required>
+                    <input type="password" name="signup_password" placeholder="Password" required>
+                    <button type="submit">Signup</button>
+                </form>
+            </div>
         </div>
     </div>
-
-    <!-- Signup Modal -->
-    <div id="signupModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="toggleModal('signupModal')">&times;</span>
-            <h2>Sign Up</h2>
-            <form class="auth-form">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm Password" required>
-                <button type="submit">Sign Up</button>
-            </form>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <p>Leading the electric revolution in transportation.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="#home">Home</a>
-                <a href="#stations">Stations</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="footer-section">
-                <h3>Connect</h3>
-                <div class="social-links">
-                    <a href="#" class="social-icon">📱</a>
-                    <a href="#" class="social-icon">👥</a>
-                    <a href="#" class="social-icon">📸</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 EV Transport. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
